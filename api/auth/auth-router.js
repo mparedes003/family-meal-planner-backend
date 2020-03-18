@@ -4,11 +4,13 @@ const jwt = require('jsonwebtoken');
 
 const db = require('../users/users-model');
 const { generateToken } = require('./auth-middleware');
-// const secrets = require('../../config/secrets');
 
-// endpoints beginning with /api/auth
+// Endpoints beginning with /api/auth
+
+// Register/Add/Create a user endpoint
 router.post('/register', (req, res) => {
   let user = req.body;
+  // Use bcryptjs to hash the username and passsword
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
 

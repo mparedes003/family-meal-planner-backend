@@ -13,6 +13,7 @@ function generateToken(user) {
     expiresIn: '1d'
   };
 
+  // returns JsonWebToken as a string
   return jwt.sign(jwtPayload, secrets.jwtSecret, jwtOptions);
 }
 
