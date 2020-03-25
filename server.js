@@ -4,6 +4,7 @@ const helmet = require('helmet');
 
 const authRouter = require('./api/auth/auth-router');
 const usersRouter = require('./api/users/users-router');
+const ingredientsRouter = require('./api/ingredients/ingredients-router');
 
 const server = express();
 
@@ -14,6 +15,7 @@ server.use(express.json());
 server.use('/auth', authRouter);
 
 server.use('/users', usersRouter);
+server.use('/ingredients', ingredientsRouter);
 
 server.get('/', (req, res) => {
   res.status(200).json({ Success: 'We have lift off!!!' });
