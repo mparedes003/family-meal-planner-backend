@@ -2,8 +2,10 @@ const db = require('../../data/dbConfig.js');
 module.exports = {
   findAllIngredients,
   findIngredientsBy,
-  findIngredientsById,
-  addIngredient
+  findIngredientById,
+  addIngredient,
+  updateIngredient,
+  deleteIngredient
 };
 
 // Find all ingredients
@@ -17,7 +19,7 @@ function findIngredientsBy(filter) {
 }
 
 // Find ingredients by id
-function findIngredientsById(id) {
+function findIngredientById(id) {
   return db('ingredients')
     .where({ id })
     .first();
@@ -28,6 +30,21 @@ function addIngredient(ingredient) {
   return db('ingredients')
     .insert(ingredient)
     .then(ids => {
-      return findIngredientsById(ids[0]);
+      return findIngredientById(ids[0]);
     });
+}
+// Update an ingredient
+function updateIngredient(id, changes) {
+  return db('ingredients')
+    .where({ id })
+    .update(changes)
+    .then(() => {
+      return findIngredientById(id);
+    });
+}
+// Delete an ingredient
+function deleteIngredient(id) {
+  return db('ingredients')
+    .where({ id })
+    .del();
 }
