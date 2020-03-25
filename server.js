@@ -6,6 +6,7 @@ const authRouter = require('./api/auth/auth-router');
 const usersRouter = require('./api/users/users-router');
 const ingredientsRouter = require('./api/ingredients/ingredients-router');
 const unitsRouter = require('./api/units/units-router');
+const tagsRouter = require('./api/tags/tags-router');
 
 const server = express();
 
@@ -18,6 +19,7 @@ server.use('/auth', authRouter);
 server.use('/users', usersRouter);
 server.use('/ingredients', ingredientsRouter);
 server.use('/units', unitsRouter);
+server.use('/tags', tagsRouter);
 
 server.get('/', (req, res) => {
   res.status(200).json({ Success: 'We have lift off!!!' });
