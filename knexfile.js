@@ -2,9 +2,9 @@
 
 module.exports = {
   development: {
-    client: "sqlite3",
+    client: 'sqlite3',
     connection: {
-      filename: "./data/mealplanner.sqlite3"
+      filename: './data/mealplanner.sqlite3'
     },
     // },
 
@@ -23,11 +23,18 @@ module.exports = {
     useNullAsDefault: true,
 
     migrations: {
-      directory: "./data/migrations"
+      directory: './data/migrations'
     },
 
     seeds: {
-      directory: "./data/seeds"
+      directory: './data/seeds'
+    },
+    // needed because using foreign keys
+    pool: {
+      afterCreate: (conn, done) => {
+        //runs after a connection is made to the sqlite engine
+        conn.run('PRAGMA foreign_keys = ON', done); // tunr on FK enforcement
+      }
     }
   }
 
