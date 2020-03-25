@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // ADD an ingredient
-router.post(`/`, (req, res) => {
+router.post('/', (req, res) => {
   const ingredient = req.body;
 
   db.addIngredient(ingredient)
