@@ -11,8 +11,7 @@ module.exports = {
 
 // Find all users
 function findAllUsers() {
-  return db('users');
-  //.select('id', 'username');
+  return db('users').select('id', 'username');
 }
 
 // Find user by a given parameter
