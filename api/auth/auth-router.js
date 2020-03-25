@@ -4,16 +4,16 @@ const bcrypt = require('bcryptjs');
 const db = require('../users/users-model');
 const { generateToken } = require('./auth-middleware');
 
-// Endpoints beginning with /api/auth
+// Endpoints beginning with /auth
 
-// Endpoint to Register/Add/Create a user
+// Register/Add/Create a user
 router.post('/register', (req, res) => {
-  let user = req.body;
+  const user = req.body;
   // Use bcryptjs to hash the username and passsword
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
 
-  db.add(user)
+  db.addUser(user)
     .then(user => {
       const token = generateToken(user);
 
@@ -24,11 +24,11 @@ router.post('/register', (req, res) => {
     });
 });
 
-// Endpoint to Log a user In
+// Login a user
 router.post('/login', (req, res) => {
-  let { username, password } = req.body;
+  const { username, password } = req.body;
 
-  db.findBy({ username }) // Find the user by the username
+  db.findUserBy({ username }) // Find the user by the username
     .first()
     .then(user => {
       // Verify that the credentials are correct

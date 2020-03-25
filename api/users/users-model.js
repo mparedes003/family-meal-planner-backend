@@ -1,30 +1,53 @@
 const db = require('../../data/dbConfig.js');
 
 module.exports = {
-  find,
-  findBy,
-  findById,
-  add
+  findAllUsers,
+  findUserBy,
+  findUserById,
+  addUser,
+  updateUser,
+  deleteUser
 };
 
 // Find all users
-function find() {
-  return db('users').select('id', 'username');
+function findAllUsers() {
+  return db('users');
+  //.select('id', 'username');
 }
 
 // Find user by a given parameter
-function findBy(filter) {
+function findUserBy(filter) {
   return db('users').where(filter);
 }
 
 // Find user by id
-function findById(id) {
+function findUserById(id) {
   return db('users')
     .where({ id })
     .first();
 }
 
 // Add/Create a user
-function add(user) {
-  return db('users').insert(user);
+function addUser(user) {
+  return db('users')
+    .insert(user)
+    .then(ids => {
+      return findUserById(ids[0]);
+    });
+}
+
+// Update a user
+function updateUser(id, changes) {
+  return db('users')
+    .where({ id })
+    .update(changes)
+    .then(() => {
+      return findUserById(id);
+    });
+}
+// Delete a user
+function deleteUser(id) {
+  return db('users')
+    .where({ id })
+    .del();
 }
