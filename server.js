@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const authRouter = require('./api/auth/auth-router');
 const usersRouter = require('./api/users/users-router');
 const ingredientsRouter = require('./api/ingredients/ingredients-router');
+const recipeIngredientsRouter = require('./api/recipe_ingredients/recipe_ingredients-router');
 const unitsRouter = require('./api/units/units-router');
 const recipesRouter = require('./api/recipes/recipes-router');
 const tagsRouter = require('./api/tags/tags-router');
@@ -19,6 +20,7 @@ server.use('/auth', authRouter);
 
 server.use('/users', usersRouter);
 server.use('/ingredients', ingredientsRouter);
+server.use('/recipe_ingredients', recipeIngredientsRouter);
 server.use('/units', unitsRouter);
 server.use('/recipes', recipesRouter);
 server.use('/tags', tagsRouter);
