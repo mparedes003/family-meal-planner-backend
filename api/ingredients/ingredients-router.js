@@ -4,10 +4,10 @@ const db = require('./ingredients-model');
 // GET all ingredients
 router.get('/', (req, res) => {
   db.findAllIngredients()
-    .then(ingredients => {
+    .then((ingredients) => {
       res.status(200).json(ingredients);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send(err);
     });
 });
@@ -17,10 +17,10 @@ router.post('/', (req, res) => {
   const ingredient = req.body;
 
   db.addIngredient(ingredient)
-    .then(ingredient => {
+    .then((ingredient) => {
       res.status(200).json(ingredient);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: 'Ingredient not added' });
     });
 });
@@ -31,14 +31,14 @@ router.put(`/:id`, (req, res) => {
   const changes = req.body;
 
   db.updateIngredient(id, changes)
-    .then(ingredient => {
+    .then((ingredient) => {
       if (ingredient) {
         res.status(200).json(ingredient);
       } else {
         res.status(404).json({ message: 'Ingredient not found' });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: 'Failed to update ingredient' });
     });
 });
@@ -48,16 +48,16 @@ router.delete(`/:id`, (req, res) => {
   const { id } = req.params;
 
   db.deleteIngredient(id)
-    .then(ingredient => {
+    .then((ingredient) => {
       if (ingredient) {
         res.status(200).json({ message: 'Ingredient deleted successfully.' });
       } else {
         res.status(404).json({
-          message: 'Ingredient not found. Nothing to delete.'
+          message: 'Ingredient not found. Nothing to delete.',
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: 'Failed to delete ingredient' });
     });
 });
