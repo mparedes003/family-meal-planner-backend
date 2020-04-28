@@ -17,9 +17,20 @@ function findRecipeBy(filter) {
   return db('recipes').where(filter);
 }
 
-// Find an recipe by id
-function findRecipeById(id) {
-  return db('recipes').where({ id }).first();
+// find recipe by id
+function findRecipeById(recipeId) {
+  const recipe = db('recipes').where(recipeId);
+  const { id } = recipeId;
+  const recipe_ingredients = db('recipe_ingredients')
+    .join('ingredients', 'ingredients.id', 'recipe_ingredients.ingredient_id')
+    .select(
+      'recipe_ingredients.id',
+      'recipe_ingredients.quantity',
+      'ingredients.name'
+    )
+    .where('recipe_id', id);
+
+  return Promise.all([recipe, recipe_ingredients]);
 }
 
 // Add an recipe

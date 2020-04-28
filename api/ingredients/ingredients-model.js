@@ -6,7 +6,7 @@ module.exports = {
   findIngredientById,
   addIngredient,
   updateIngredient,
-  deleteIngredient
+  deleteIngredient,
 };
 
 // Find all ingredients
@@ -21,16 +21,14 @@ function findIngredientsBy(filter) {
 
 // Find ingredients by id
 function findIngredientById(id) {
-  return db('ingredients')
-    .where({ id })
-    .first();
+  return db('ingredients').where({ id }).first();
 }
 
 // Add an ingredient
 function addIngredient(ingredient) {
   return db('ingredients')
     .insert(ingredient)
-    .then(ids => {
+    .then((ids) => {
       return findIngredientById(ids[0]);
     });
 }
@@ -45,7 +43,5 @@ function updateIngredient(id, changes) {
 }
 // Delete an ingredient
 function deleteIngredient(id) {
-  return db('ingredients')
-    .where({ id })
-    .del();
+  return db('ingredients').where({ id }).del();
 }
