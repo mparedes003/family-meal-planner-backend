@@ -4,7 +4,7 @@ module.exports = {
   findAllIngredients,
   findIngredientsBy,
   findIngredientById,
-  multiInsert,
+  multiIngrInsert,
   addIngredient,
   updateIngredient,
   deleteIngredient,
@@ -25,9 +25,11 @@ function findIngredientById(id) {
   return db('ingredients').where({ id }).first();
 }
 
-function multiInsert(recipe_id, ingredient) {
-  console.log('irecID:', recipe_id);
-  console.log('ingrd:', ingredient);
+// Inserts multiple ingredients into a new array by mapping.
+// Use to add a list of ingredients to a new recipe.
+function multiIngrInsert(recipe_id, ingredient) {
+  // console.log('irecID:', recipe_id);
+  // console.log('ingrd:', ingredient);
   ingredient.map((ingredient) => {
     this.addIngredient(ingredient, recipe_id);
   });

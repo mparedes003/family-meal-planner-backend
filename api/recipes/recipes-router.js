@@ -20,10 +20,16 @@ router.get('/:id', async (req, res) => {
 
   db.findRecipeById(id)
     .then((rec) => {
-      let [recipe, ingredients] = rec;
+      let [recipe, ingredients, instructions] = rec;
       recipe = recipe[0];
       if (recipe) {
-        res.status(200).json({ ...recipe, ingredients: ingredients });
+        res
+          .status(200)
+          .json({
+            ...recipe,
+            ingredients: ingredients,
+            instructions: instructions,
+          });
       } else {
         res.status(404).json({ message: 'No recipe found with this ID.' });
       }
@@ -46,10 +52,13 @@ router.post('/', restricted, (req, res) => {
         //   .log('recId found:', id)
         .then((rec) => {
           console.log('rec:', rec);
-          let [recipe, ingredients] = rec;
+          let [recipe, ingredients, instructions] = rec;
           //recipe = recipe[0];
-          //console.log('recipe:', recipe);
-          res.json({ ...recipe, ingredients: ingredients });
+          res.json({
+            ...recipe,
+            ingredients: ingredients,
+            instructions: instructions,
+          });
         })
         .catch((err) => {
           res.status(500).json({ error: `Could not find recipe: ${err}` });

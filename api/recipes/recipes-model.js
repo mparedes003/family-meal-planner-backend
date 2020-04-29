@@ -1,5 +1,6 @@
 const db = require('../../data/dbConfig.js');
 const ingredientsModel = require('../ingredients/ingredients-model');
+const instructionsModel = require('../instructions/instructions-model');
 
 module.exports = {
   findAllRecipes,
@@ -31,8 +32,12 @@ function findRecipeById(id) {
       'ingredients.name'
     )
     .where('recipe_id', id);
+  const instructions = db('instructions')
+    .select('step_number', 'description')
+    .where('recipe_id', id)
+    .orderBy('step_number');
 
-  return Promise.all([recipe, recipe_ingredients]);
+  return Promise.all([recipe, recipe_ingredients, instructions]);
 }
 
 // Add a recipe
@@ -61,7 +66,16 @@ async function addRecipe(recipe, userId) {
           const id = result;
           console.log('recipe_id', id);
           if (recipe.ingredients && recipe.ingredients !== null) {
-            ingredientsModel.multiInsert(id, recipe.ingredients);
+            ingredientsModel.multiIngrInsert(id, recipe.ingredients);
+          }
+          return id;
+        })
+        .then((id) => {
+          // console.log('RecID4Inst:', id);
+          // Add all instructions
+          if (recipe.instructions && recipe.instructions !== null) {
+            // console.log('RecID4InstMAP:', id);
+            instructionsModel.multiInstInsert(id, recipe.instructions);
           }
           return id;
         })
