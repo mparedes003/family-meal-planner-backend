@@ -40,11 +40,23 @@ router.post('/', restricted, (req, res) => {
   const ownerId = req.user.id;
 
   db.addRecipe(recipe, ownerId)
-    .then((recipe) => {
-      res.status(200).json(recipe);
+    .then((id) => {
+      db.findRecipeById(id)
+        // console
+        //   .log('recId found:', id)
+        .then((rec) => {
+          console.log('rec:', rec);
+          let [recipe, ingredients] = rec;
+          //recipe = recipe[0];
+          //console.log('recipe:', recipe);
+          res.json({ ...recipe, ingredients: ingredients });
+        })
+        .catch((err) => {
+          res.status(500).json({ error: `Could not find recipe: ${err}` });
+        });
     })
     .catch((err) => {
-      res.status(500).json({ message: 'Recipe not added.' });
+      res.status(500).json({ error: `Could not post recipe: ${err}` });
     });
 });
 
