@@ -1,5 +1,5 @@
-exports.up = function(knex) {
-  return knex.schema.createTable('recipe_tags', tbl => {
+exports.up = function (knex) {
+  return knex.schema.createTable('recipe_tags', (tbl) => {
     tbl.increments('id');
 
     tbl
@@ -20,6 +20,6 @@ exports.up = function(knex) {
   });
 };
 
-exports.down = function(knex) {
-  return knex.schema.dropTableIFExists('recipe_tags');
+exports.down = function (knex) {
+  return knex.schema.dropTableIfExists('recipe_tags');
 };
