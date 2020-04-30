@@ -18,13 +18,15 @@ exports.up = function (knex) {
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
 
-    tbl
-      .integer('unit_id')
-      // .notNullable()
-      .references('id')
-      .inTable('units')
-      .onUpdate('CASCADE')
-      .onDelete('CASCADE');
+    tbl.string('measurement');
+
+    // tbl
+    //   .integer('unit_id')
+    //   // .notNullable()
+    //   .references('id')
+    //   .inTable('units')
+    //   .onUpdate('CASCADE')
+    //   .onDelete('CASCADE');
 
     tbl.float('quantity');
     // .notNullable();

@@ -72,6 +72,7 @@ function addIngredient(ingredient, recipe_id) {
                 recipe_id: recipe_id,
                 ingredient_id: id,
                 quantity: ingredient.quantity,
+                measurement: ingredient.measurement,
               })
               //.returning('id')
               .then(([id]) => {
