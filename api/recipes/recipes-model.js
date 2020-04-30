@@ -29,9 +29,22 @@ function findRecipeById(id) {
     .select(
       'recipe_ingredients.id',
       'recipe_ingredients.quantity',
+      'recipe_ingredients.measurement',
       'ingredients.name'
     )
     .where('recipe_id', id);
+
+  // select recipe_ingredients.id, recipe_ingredients.quantity, units.name, ingredients.name
+  // from ingredients
+  // join recipe_ingredients on ingredients.id = recipe_ingredients.ingredient_id
+  // join units on units.id = recipe_ingredients.unit_id
+
+  // knex
+  // .select('books.title', 'authors.name')
+  // .from('books')
+  // .join('books_authors', 'books.id', '=', 'books_authors.book_id')
+  // .join('authors', 'authors.id', '=', 'books_authors.author_id')
+
   const instructions = db('instructions')
     .select('step_number', 'description')
     .where('recipe_id', id)
