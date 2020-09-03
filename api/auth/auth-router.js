@@ -14,12 +14,12 @@ router.post('/register', (req, res) => {
   user.password = hash;
 
   db.addUser(user)
-    .then(user => {
+    .then((user) => {
       const token = generateToken(user);
 
       res.status(201).json({ username: user.username, token });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: 'User not created.' });
     });
 });
@@ -30,7 +30,7 @@ router.post('/login', (req, res) => {
 
   db.findUserBy({ username }) // Find the user by the username
     .first()
-    .then(user => {
+    .then((user) => {
       // Verify that the credentials are correct
       if (user && bcrypt.compareSync(password, user.password)) {
         // Generate a token
@@ -38,14 +38,14 @@ router.post('/login', (req, res) => {
 
         res.status(201).json({
           message: `Welcome ${user.username}!`,
-          token
+          token,
         });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
       }
     })
-    .catch(error => {
-      res.staus(500).json(error);
+    .catch((error) => {
+      res.status(500).json(error);
     });
 });
 
