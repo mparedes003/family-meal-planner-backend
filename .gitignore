@@ -6,3 +6,5 @@ node_modules
 
 # environmental variables in development
 .env
+
+debug.log
