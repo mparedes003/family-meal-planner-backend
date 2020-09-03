@@ -3,6 +3,7 @@ node_modules
 
 # data
 **/*.sqlite3
+mealplanner.sqlite3
 
 # environmental variables in development
 .env

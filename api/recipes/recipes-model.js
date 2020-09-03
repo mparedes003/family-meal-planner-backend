@@ -21,9 +21,9 @@ function findRecipeBy(filter) {
 
 // find recipe by id
 // function findRecipeById(recipeId)
-function findRecipeById(id) {
-  const recipe = db('recipes').where('id', id);
-  // const { id } = recipeId;
+function findRecipeById(recipeId) {
+  const recipe = db('recipes').where(recipeId);
+  const { id } = recipeId;
   const recipe_ingredients = db('recipe_ingredients')
     .join('ingredients', 'ingredients.id', 'recipe_ingredients.ingredient_id')
     .select(
