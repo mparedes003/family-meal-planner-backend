@@ -7,6 +7,7 @@ module.exports = {
   findRecipeBy,
   findRecipeById,
   addRecipe,
+  deleteRecipe,
 };
 
 // find all recipes
@@ -104,18 +105,7 @@ async function addRecipe(recipe, userId) {
     });
 }
 
-// async function addRecipe(recipe, userId) {
-//   const recipeInsert = {
-//     owner_id: userId,
-//     title: recipe.title,
-//     prep_time: recipe.prep_time,
-//     cook_time: recipe.cook_time,
-//     description: recipe.description,
-//     notes: recipe.notes,
-//   };
-
-//   const newRecipe = await db('recipes').insert(recipeInsert);
-//   console.log(newRecipe);
-
-//   return findAllRecipes();
-// }
+// Delete a recipe
+function deleteRecipe(id) {
+  return db('recipes').where(id).del();
+}
